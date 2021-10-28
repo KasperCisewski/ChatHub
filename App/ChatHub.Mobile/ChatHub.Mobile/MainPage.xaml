@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ChatHub.Mobile"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ChatHub.Mobile.MainPage">
 
     <StackLayout>
-        <!-- Place new controls here -->
         <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+        <Entry Text="{Binding UserName}"></Entry>
+        <Button Command="{Binding OpenChat}"></Button>
     </StackLayout>
 
 </ContentPage>

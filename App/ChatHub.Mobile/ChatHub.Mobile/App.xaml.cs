@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
+using ChatHub.Mobile.ViewModels;
+using Prism.Mvvm;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,11 +12,13 @@ namespace ChatHub.Mobile
     {
         public App()
         {
+            ViewModelLocationProvider.Register<MainPage, MainPageViewModel>();
+
             InitializeComponent();
 
             MainPage = new MainPage();
         }
-
+        
         protected override void OnStart()
         {
             // Handle when your app starts
