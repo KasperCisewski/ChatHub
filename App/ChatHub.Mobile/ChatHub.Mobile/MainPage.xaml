@@ -6,12 +6,10 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ChatHub.Mobile.MainPage">
 
-    <StackLayout>
-        <Label Text="Welcome to Xamarin.Forms!" 
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand" />
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand">
         <Entry Text="{Binding UserName}"></Entry>
-        <Button Command="{Binding OpenChat}"></Button>
+        <Button Text="Go to chat" Command="{Binding OpenChat}"></Button>
     </StackLayout>
 
 </ContentPage>

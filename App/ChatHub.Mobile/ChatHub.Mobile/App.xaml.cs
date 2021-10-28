@@ -1,37 +1,33 @@
-﻿using System;
-using System.ComponentModel;
-using ChatHub.Mobile.ViewModels;
-using Prism.Mvvm;
+﻿using ChatHub.Mobile.ViewModels;
+using ChatHub.Mobile.Views;
+using Prism.Ioc;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace ChatHub.Mobile
 {
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
-            ViewModelLocationProvider.Register<MainPage, MainPageViewModel>();
+        }
 
+        protected override async void OnInitialized()
+        {
             InitializeComponent();
 
-            MainPage = new MainPage();
-        }
-        
-        protected override void OnStart()
-        {
-            // Handle when your app starts
+            var result = await NavigationService.NavigateAsync("NavigationPage/MainPage");
+
+            if(!result.Success)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
         }
 
-        protected override void OnSleep()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ChatView, ChatViewModel>();
         }
     }
 }
