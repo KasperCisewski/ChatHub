@@ -9,7 +9,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
+        <Folder Include="Controllers" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\..\Library\ChatHub.Library\ChatHub.Library.csproj" />
     </ItemGroup>
 
 </Project>
