@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 using ChatHub.Library.Models;
+using ChatHub.Mobile.Models;
 using ChatHub.Mobile.Services;
 using ChatHub.Mobile.Services.Implementation;
 using Prism.Mvvm;
@@ -26,8 +27,8 @@ namespace ChatHub.Mobile.ViewModels
         public Command SendMessage => sendMessageCommand ??
             (sendMessageCommand = new Command<string>(async (message) => await _messageService.SendMessageAsync(new Message(_userName, message, DateTime.Now), _cancellationTokenSource)));
 
-        private ObservableCollection<Message> _messages;
-        public ObservableCollection<Message> Messages => _messages;
+        private ObservableCollection<MessageUIModel> _messages;
+        public ObservableCollection<MessageUIModel> Messages => _messages;
         
         private string _messageText;
 
@@ -57,8 +58,8 @@ namespace ChatHub.Mobile.ViewModels
         {
             UserName = parameters["Username"].ToString();
             _cancellationTokenSource = new CancellationTokenSource();
-            _messages = new ObservableCollection<Message>();
-            await _messageService.InitializeConnection(_cancellationTokenSource);
+            _messages = new ObservableCollection<MessageUIModel>();
+            await _messageService.InitializeConnection();
         }
     }
 }

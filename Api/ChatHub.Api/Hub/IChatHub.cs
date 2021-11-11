@@ -4,6 +4,6 @@ namespace ChatHub.Api.Hub
 {
     public interface IChatHub
     {
-        Task SendMessage(Message message);
+        Task ReceiveMessage(Message message);
     }
 }
