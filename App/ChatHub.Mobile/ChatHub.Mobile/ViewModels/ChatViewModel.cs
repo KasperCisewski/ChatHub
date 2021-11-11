@@ -13,9 +13,8 @@ namespace ChatHub.Mobile.ViewModels
     public class ChatViewModel : BindableBase, INavigationAware
     {
         private readonly IMessageService _messageService;
-        private Command<string> sendMessageCommand;
-        private CancellationTokenSource _cancellationTokenSource;
-        
+        private Command _sendMessageCommand;
+
         private string _userName = string.Empty;
 
         public string UserName
@@ -23,13 +22,20 @@ namespace ChatHub.Mobile.ViewModels
             get => _userName;
             set => SetProperty(ref _userName, value);
         }
-        
-        public Command SendMessage => sendMessageCommand ??
-            (sendMessageCommand = new Command<string>(async (message) => await _messageService.SendMessageAsync(new Message(_userName, message, DateTime.Now), _cancellationTokenSource)));
+
+        public Command SendMessageCommand => _sendMessageCommand ??
+            (_sendMessageCommand = new Command(async () =>
+            {
+                await _messageService.SendMessageAsync(new Message(_userName, MessageText, DateTime.Now));
+            }));
 
         private ObservableCollection<MessageUIModel> _messages;
-        public ObservableCollection<MessageUIModel> Messages => _messages;
-        
+        public ObservableCollection<MessageUIModel> Messages
+        {
+            get => _messages;
+            set => SetProperty(ref _messages, value);
+        }
+
         private string _messageText;
 
         public string MessageText
@@ -38,27 +44,25 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _messageText, value);
         }
 
-        
         public ChatViewModel()
         {
+            _messages = new ObservableCollection<MessageUIModel>();
             _messageService = new MessageService();
             _messageService
                 .MessageObservable
                 .Subscribe(message =>
-            {
-                _messages.Add(message);
-            });
+                {
+                    Messages.Add(message);
+                });
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
         }
-        
+
         public async void OnNavigatedTo(INavigationParameters parameters)
         {
             UserName = parameters["Username"].ToString();
-            _cancellationTokenSource = new CancellationTokenSource();
-            _messages = new ObservableCollection<MessageUIModel>();
             await _messageService.InitializeConnection();
         }
     }

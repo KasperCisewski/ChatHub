@@ -1,4 +1,3 @@
-using System;
 using ChatHub.Library.Models;
 namespace ChatHub.Mobile.Models
 {

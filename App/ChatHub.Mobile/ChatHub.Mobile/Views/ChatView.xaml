@@ -6,11 +6,32 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ChatHub.Mobile.Views.ChatView">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Start" Orientation="Vertical">
-            <Label Text="Your user name:"
-                   VerticalOptions="Start" />
-            <Label Text="{Binding UserName}"
-                   VerticalOptions="End" />
-        </StackLayout>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            
+            <ListView Grid.Row="0" ItemsSource="{Binding Messages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding MessageText}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>            
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*" />
+                    <ColumnDefinition Width="30*" />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" Text="{Binding MessageText}" />
+                <Button Grid.Column="1" Text="Send"  Command="{Binding SendMessageCommand}" />
+            </Grid>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
