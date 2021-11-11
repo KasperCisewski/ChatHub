@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Threading;
 using ChatHub.Library.Models;
 using ChatHub.Mobile.Models;
 using ChatHub.Mobile.Services;
@@ -27,6 +26,7 @@ namespace ChatHub.Mobile.ViewModels
             (_sendMessageCommand = new Command(async () =>
             {
                 await _messageService.SendMessageAsync(new Message(_userName, MessageText, DateTime.Now));
+                MessageText = string.Empty;
             }));
 
         private ObservableCollection<MessageUIModel> _messages;
@@ -63,7 +63,7 @@ namespace ChatHub.Mobile.ViewModels
         public async void OnNavigatedTo(INavigationParameters parameters)
         {
             UserName = parameters["Username"].ToString();
-            await _messageService.InitializeConnection();
+            await _messageService.InitializeConnection(UserName);
         }
     }
 }

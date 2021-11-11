@@ -12,20 +12,19 @@ namespace ChatHub.Mobile.Services.Implementation
     {
         private HubConnection _hubConnection;
 
-        private Subject<MessageUIModel> _messageSubject = new Subject<MessageUIModel>();
+        private readonly Subject<MessageUIModel> _messageSubject = new Subject<MessageUIModel>();
 
         public MessageService()
         {
             MessageObservable = _messageSubject;
         }
 
-        public async Task InitializeConnection()
+        public async Task InitializeConnection(string currentUsername)
         {
             try
             {
                 _hubConnection = new HubConnectionBuilder()
                     .WithUrl("https://chathubtests2021.azurewebsites.net/chatHub")
-                    //.WithUrl("https://localhost:5001/chatHub")
                     .ConfigureLogging(builder =>
                     {
                         builder.SetMinimumLevel(LogLevel.Trace);
@@ -35,17 +34,10 @@ namespace ChatHub.Mobile.Services.Implementation
 
                 await _hubConnection.StartAsync();
 
-                _hubConnection.On("ReceiveMessage", (object obj) =>
+                _hubConnection.On("ReceiveMessage", (Message message) =>
                 {
-                    // var message = (Message) obj;
-                    // _messageSubject.OnNext(new MessageUIModel(message, false));
+                     _messageSubject.OnNext(new MessageUIModel(message, currentUsername == message.Username));
                 });
-                
-                // _hubConnection.On("ReceiveMessage", (Message obj) =>
-                // {
-                //     // var message = (Message) obj;
-                //     // _messageSubject.OnNext(new MessageUIModel(message, false));
-                // });
             }
             catch (Exception e)
             {

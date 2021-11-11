@@ -7,7 +7,7 @@ namespace ChatHub.Mobile.Services
     public interface IMessageService
     {
         Task SendMessageAsync(Message message);
-        Task InitializeConnection();
+        Task InitializeConnection(string currentUsername);
         IObservable<MessageUIModel> MessageObservable { get; }
     }
 }
