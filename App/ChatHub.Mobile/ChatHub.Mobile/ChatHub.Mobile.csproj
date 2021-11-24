@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controls" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\..\Library\ChatHub.Library\ChatHub.Library.csproj" />
     </ItemGroup>
 </Project>

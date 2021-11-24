@@ -5,7 +5,7 @@ namespace ChatHub.Mobile.Models
     {
         public bool IsMessageOwnerIsCurrentUser { get; }
 
-        public MessageUIModel(Message message, bool isMessageOwnerIsCurrentUser) : base(message.Username, message.MessageText, message.DateTime)
+        public MessageUIModel(Message message, bool isMessageOwnerIsCurrentUser) : base(message.Username, message.Content, message.DateTime)
         {
             IsMessageOwnerIsCurrentUser = isMessageOwnerIsCurrentUser;
         }

@@ -19,22 +19,20 @@
                 <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
 
-            <ListView Grid.Row="0" ItemsSource="{Binding Messages}">
-                <ListView.ItemTemplate>
+            <CollectionView Grid.Row="0" ItemsSource="{Binding Messages}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
                             <StackLayout
                                 Orientation="Vertical"
                                 HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}">
                                 <Label Text="{Binding Username}" 
                                        HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}" 
                                        VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10"  FontAttributes="Italic" />
-                                <Label Text="{Binding MessageText}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" />
+                                <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" />
                             </StackLayout>
-                        </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

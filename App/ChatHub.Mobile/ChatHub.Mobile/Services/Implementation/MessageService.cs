@@ -10,17 +10,21 @@ namespace ChatHub.Mobile.Services.Implementation
 {
     public class MessageService : IMessageService
     {
+        private readonly IUserService _userService;
+        private const string _hubReceiveMethod = "ReceiveMessage";
         private HubConnection _hubConnection;
 
         private readonly Subject<MessageUIModel> _messageSubject = new Subject<MessageUIModel>();
 
-        public MessageService()
+        public MessageService(IUserService userService)
         {
+            this._userService = userService;
             MessageObservable = _messageSubject;
         }
 
         public async Task InitializeConnection(string currentUsername)
         {
+            _userService.SaveCurrentUsername(currentUsername);
             try
             {
                 _hubConnection = new HubConnectionBuilder()
@@ -31,19 +35,45 @@ namespace ChatHub.Mobile.Services.Implementation
                     })
                     .WithAutomaticReconnect()
                     .Build();
-
+                
                 await _hubConnection.StartAsync();
 
-                _hubConnection.On("ReceiveMessage", (Message message) =>
-                {
-                     _messageSubject.OnNext(new MessageUIModel(message, currentUsername == message.Username));
-                });
+                AddHubListeners();
+                
+                _hubConnection.Reconnected += HubConnectionOnReconnected;
+                _hubConnection.Reconnecting += HubConnectionOnReconnecting;
+                _hubConnection.Closed += HubConnectionOnClosed; 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
         }
+
+        private void AddHubListeners()
+        {
+            _hubConnection.On(_hubReceiveMethod, (Message message) =>
+            {
+                _messageSubject.OnNext(new MessageUIModel(message, _userService.GetCurrentUsername() == message.Username));
+            });
+        }
+        
+        private Task HubConnectionOnReconnected(string arg)
+        {
+            return Task.CompletedTask;
+        }
+        
+        private Task HubConnectionOnReconnecting(Exception arg)
+        {
+            return Task.CompletedTask;
+        }
+        
+        private Task HubConnectionOnClosed(Exception arg)
+        {
+            _hubConnection.Remove(_hubReceiveMethod);
+            return Task.CompletedTask;
+        }
+        
         public IObservable<MessageUIModel> MessageObservable { get; }
 
         public Task SendMessageAsync(Message message)

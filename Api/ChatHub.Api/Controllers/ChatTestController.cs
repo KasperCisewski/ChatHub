@@ -17,19 +17,12 @@ namespace ChatHub.Api.Controllers
         {
             _hubContext = hubContext;
         }
-        
-        [HttpGet]
-        [Route("getMessages")]
-        public ActionResult GetHubMessages()
-        {
-            return Ok("Get");
-        }
 
         [HttpGet]
         [Route("sendMessage")]
-        public async Task<ActionResult> SendMessage()
+        public async Task<ActionResult> SendMessage(string message)
         {
-            await _hubContext.Clients.All.SendAsync("ReceiveMessage", new Message("API", $"SEMD MESS ASYnc Home page loaded at: {DateTime.Now}", DateTime.Now));
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", new Message("API", $"Message {message} at: {DateTime.Now}", DateTime.Now));
 
             return Ok("Sent message");
         }

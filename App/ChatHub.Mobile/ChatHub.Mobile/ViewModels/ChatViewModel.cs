@@ -44,10 +44,10 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _messageText, value);
         }
 
-        public ChatViewModel()
+        public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
-            _messageService = new MessageService();
+            _messageService = messageService;
             _messageService
                 .MessageObservable
                 .Subscribe(message =>
