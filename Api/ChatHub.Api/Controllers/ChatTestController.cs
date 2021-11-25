@@ -19,7 +19,7 @@ namespace ChatHub.Api.Controllers
         }
 
         [HttpGet]
-        [Route("sendMessage")]
+        [Route("sendMessage/{message}")]
         public async Task<ActionResult> SendMessage(string message)
         {
             await _hubContext.Clients.All.SendAsync("ReceiveMessage", new Message("API", $"Message {message} at: {DateTime.Now}", DateTime.Now));

@@ -46,12 +46,7 @@ namespace ChatHub.Mobile.ViewModels
         public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
-            Messages = new ObservableCollection<MessageUIModel>()
-            {
-                new MessageUIModel(new Message("test","test223", DateTime.Now), false),
-                new MessageUIModel(new Message("test", "test2", DateTime.Now), true),
-            };
-                
+
             _messageService = messageService;
             _messageService
                 .MessageObservable
