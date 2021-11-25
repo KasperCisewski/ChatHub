@@ -3,12 +3,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
-             xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
+             xmlns:Selectors="clr-namespace:ChatHub.Mobile.Selectors;assembly=ChatHub.Mobile"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ChatHub.Mobile.Views.ChatView">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Converters:StackLayoutAlignmentConverter x:Key="StackLayoutAlignmentConverter" />
+            <Selectors:ChatMessageTemplateSelector x:Key="ChatMessageTemplateSelector" />
+
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -19,20 +20,48 @@
                 <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
 
-            <CollectionView Grid.Row="0" ItemsSource="{Binding Messages}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                            <StackLayout
-                                Orientation="Vertical"
-                                HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}">
-                                <Label Text="{Binding Username}" 
-                                       HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}" 
-                                       VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10"  FontAttributes="Italic" />
-                                <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" />
-                            </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+            <!-- <CollectionView Grid.Row="0" ItemsSource="{Binding Messages}"> -->
+            <!--     <CollectionView.ItemTemplate> -->
+            <!--         <DataTemplate> -->
+            <!--                 <StackLayout -->
+            <!--                     Orientation="Vertical" -->
+            <!--                     HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}"> -->
+            <!--                     <Label Text="{Binding Username}"  -->
+            <!--                            HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}"  -->
+            <!--                            VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10"  FontAttributes="Italic" /> -->
+            <!--                     <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" /> -->
+            <!--                 </StackLayout> -->
+            <!--         </DataTemplate> -->
+            <!--     </CollectionView.ItemTemplate> -->
+            <!-- </CollectionView> -->
+
+            <CollectionView
+                Grid.Row="0"
+                Margin="24,12,24,0"
+                BackgroundColor="Transparent"
+                ItemTemplate="{StaticResource ChatMessageTemplateSelector}"
+                ItemsSource="{Binding Messages}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
             </CollectionView>
+            
+            <!-- <ListView Grid.Row="0" ItemsSource="{Binding Messages}"> -->
+            <!--     <ListView.ItemTemplate> -->
+            <!--         <DataTemplate> -->
+            <!--             <ViewCell> -->
+            <!--                 <StackLayout -->
+            <!--                     Orientation="Vertical" -->
+            <!--                     HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}"> -->
+            <!--                     <Label Text="{Binding Username}"  -->
+            <!--                            HorizontalOptions="{Binding IsMessageOwnerIsCurrentUser, Converter={StaticResource StackLayoutAlignmentConverter}}"  -->
+            <!--                            VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10"  FontAttributes="Italic" /> -->
+            <!--                     <Label Text="{Binding MessageText}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18" FontAttributes="Bold" /> -->
+            <!--                 </StackLayout> -->
+            <!--             </ViewCell> -->
+            <!--         </DataTemplate> -->
+            <!--     </ListView.ItemTemplate> -->
+            <!-- </ListView> -->
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

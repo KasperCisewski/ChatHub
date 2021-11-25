@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Frame xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Models="clr-namespace:ChatHub.Mobile.Models;assembly=ChatHub.Mobile"
+             x:DataType="Models:MessageUIModel"
+             BackgroundColor="Gray"
+             x:Class="ChatHub.Mobile.Controls.ChatIncomingMessage">
+    <StackLayout
+        Orientation="Vertical"
+        HorizontalOptions="End">
+        <Label Text="{Binding Username}"
+               HorizontalOptions="End"
+               VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Italic" />
+        <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18"
+               FontAttributes="Bold" />
+    </StackLayout>
+</Frame>

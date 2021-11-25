@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using ChatHub.Library.Models;
 using ChatHub.Mobile.Models;
 using ChatHub.Mobile.Services;
-using ChatHub.Mobile.Services.Implementation;
 using Prism.Mvvm;
 using Prism.Navigation;
 using Xamarin.Forms;
@@ -47,6 +46,12 @@ namespace ChatHub.Mobile.ViewModels
         public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
+            Messages = new ObservableCollection<MessageUIModel>()
+            {
+                new MessageUIModel(new Message("test","test223", DateTime.Now), false),
+                new MessageUIModel(new Message("test", "test2", DateTime.Now), true),
+            };
+                
             _messageService = messageService;
             _messageService
                 .MessageObservable

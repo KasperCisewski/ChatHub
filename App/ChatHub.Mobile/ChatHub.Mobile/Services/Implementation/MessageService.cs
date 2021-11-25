@@ -12,6 +12,7 @@ namespace ChatHub.Mobile.Services.Implementation
     {
         private readonly IUserService _userService;
         private const string _hubReceiveMethod = "ReceiveMessage";
+        private const string _hubSendMessageMethod = "SendMessageAsync";
         private HubConnection _hubConnection;
 
         private readonly Subject<MessageUIModel> _messageSubject = new Subject<MessageUIModel>();
@@ -65,6 +66,7 @@ namespace ChatHub.Mobile.Services.Implementation
         
         private Task HubConnectionOnReconnecting(Exception arg)
         {
+            AddHubListeners();
             return Task.CompletedTask;
         }
         
@@ -78,7 +80,7 @@ namespace ChatHub.Mobile.Services.Implementation
 
         public Task SendMessageAsync(Message message)
         {
-            return _hubConnection.SendAsync("SendMessageAsync", message);
+            return _hubConnection.SendAsync(_hubSendMessageMethod, message);
         }
     }
 }
