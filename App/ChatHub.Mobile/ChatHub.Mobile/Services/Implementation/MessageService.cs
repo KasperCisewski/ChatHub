@@ -19,7 +19,7 @@ namespace ChatHub.Mobile.Services.Implementation
 
         public MessageService(IUserService userService)
         {
-            this._userService = userService;
+            _userService = userService;
             MessageObservable = _messageSubject;
         }
 

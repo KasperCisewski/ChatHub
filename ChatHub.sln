@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHub.Api", "Api\ChatHub.Api\ChatHub.Api.csproj", "{53F7662E-298D-4E16-B4BE-211272B62CA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHub.Mobile", "App\ChatHub.Mobile\ChatHub.Mobile\ChatHub.Mobile.csproj", "{B381D374-1F32-4192-A0D1-C8584308D125}"
@@ -34,11 +35,11 @@ Global
 		{457AB825-7675-4CB9-BFF2-3FDC091F491E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{457AB825-7675-4CB9-BFF2-3FDC091F491E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{457AB825-7675-4CB9-BFF2-3FDC091F491E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
-		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
-		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
-		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
+		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.Build.0 = Debug|iPhone
+		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Debug|Any CPU.Deploy.0 = Debug|iPhone
+		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{834045B3-F454-4D3E-86D9-9E9D68E8C199}.Release|Any CPU.Build.0 = Release|iPhone
 		{3C7A5D94-14E1-4A6C-A0EA-33A3A02A1F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C7A5D94-14E1-4A6C-A0EA-33A3A02A1F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C7A5D94-14E1-4A6C-A0EA-33A3A02A1F49}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,15 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ChatHub.Mobile"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
+             BackgroundColor="Black"
+             Opacity="0.9"
              x:Class="ChatHub.Mobile.MainPage">
 
-    <StackLayout HorizontalOptions="Center"
-                 VerticalOptions="CenterAndExpand">
-        <Entry Text="{Binding UserName}"></Entry>
-        <Button Text="Go to chat" Command="{Binding OpenChat}"></Button>
+    <StackLayout Margin="16" HorizontalOptions="FillAndExpand"
+                 VerticalOptions="CenterAndExpand" Spacing="10">
+        <Label Text="Your username" HorizontalOptions="Start" />
+        <Frame BorderColor="White" CornerRadius="5" Padding="5">
+            <Entry Text="{Binding UserName}" />
+        </Frame>
+        <Button Text="Go to chat" Command="{Binding OpenChat}" />
     </StackLayout>
-
 </ContentPage>

@@ -6,7 +6,21 @@
                             xmlns:prism="http://prismlibrary.com"
                             mc:Ignorable="d"
                             x:Class="ChatHub.Mobile.App">
-    <Application.Resources>
-
-    </Application.Resources>
+        <prism:PrismApplication.Resources>   
+            <ResourceDictionary>
+                <Style TargetType="Button">
+                    <Setter Property="BackgroundColor" Value="White" />
+                    <Setter Property="TextColor" Value="Gray" />
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+                <Style TargetType="Entry">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor" Value="Gray" />
+                </Style>
+                <Style TargetType="Label">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="Opacity" Value="0.9" />
+                </Style>
+            </ResourceDictionary>
+        </prism:PrismApplication.Resources>
 </prism:PrismApplication>
