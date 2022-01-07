@@ -17,6 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{6A6FDB9E-38F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHub.Library", "Library\ChatHub.Library\ChatHub.Library.csproj", "{3C7A5D94-14E1-4A6C-A0EA-33A3A02A1F49}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{0E33963C-8F03-40E6-BE0E-C3FA26E0A9EE}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
