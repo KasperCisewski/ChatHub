@@ -5,13 +5,13 @@ using ChatHub.Mobile.Models;
 using ChatHub.Mobile.Services;
 using Prism.Mvvm;
 using Prism.Navigation;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 namespace ChatHub.Mobile.ViewModels
 {
     public class ChatViewModel : BindableBase, INavigationAware
     {
         private readonly IMessageService _messageService;
-        private Command _sendMessageCommand;
+        private IAsyncCommand _sendMessageCommand;
 
         private string _userName = string.Empty;
 
@@ -21,9 +21,14 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _userName, value);
         }
 
-        public Command SendMessageCommand => _sendMessageCommand ??
-            (_sendMessageCommand = new Command(async () =>
+        public IAsyncCommand SendMessageCommand => _sendMessageCommand ??
+            (_sendMessageCommand = new AsyncCommand(async () =>
             {
+                if (string.IsNullOrWhiteSpace(MessageText))
+                {
+                    return;
+                }
+
                 await _messageService.SendMessageAsync(new Message(_userName, MessageText, DateTime.Now));
                 MessageText = string.Empty;
             }));

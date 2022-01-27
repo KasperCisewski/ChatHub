@@ -16,7 +16,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <ScrollView VerticalOptions="FillAndExpand" x:Name="ChatViewScrollView" Margin="16">
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="ChatViewScrollView">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="85*" />
@@ -34,12 +34,12 @@
                     </CollectionView.ItemsLayout>
                 </CollectionView>
 
-                <Grid Grid.Row="1" Margin="0, 16">
+                <Grid Grid.Row="1" Margin="0, 16,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70*" />
                         <ColumnDefinition Width="30*" />
                     </Grid.ColumnDefinitions>
-                    <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center"
+                    <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center" 
                            HorizontalOptions="FillAndExpand" Text="{Binding MessageText}"
                            Focused="MessageTextEntryHandle_Focused" />
                     <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />

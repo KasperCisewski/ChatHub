@@ -10,6 +10,7 @@ namespace ChatHub.Mobile.Views
         {
             InitializeComponent();
         }
+
         private void MessageTextEntryHandle_Focused(object sender, FocusEventArgs e)
         {
             Device.BeginInvokeOnMainThread(async () =>

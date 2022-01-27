@@ -5,13 +5,13 @@ namespace ChatHub.Library.Models
     {
         public string Username { get; }
         public string Content { get; }
-        public DateTime DateTime { get; }
+        public DateTime MessageSentTime { get; }
         
-        public Message(string username, string content, DateTime dateTime)
+        public Message(string username, string content, DateTime messageSentTime)
         {
             Username = username;
             Content = content;
-            DateTime = dateTime;
+            MessageSentTime = messageSentTime;
         }
     }
 }

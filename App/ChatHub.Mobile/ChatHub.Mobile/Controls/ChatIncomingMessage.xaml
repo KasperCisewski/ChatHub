@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Models="clr-namespace:ChatHub.Mobile.Models;assembly=ChatHub.Mobile"
-             x:DataType="Models:MessageUIModel"
-             BackgroundColor="Gray"
-             x:Class="ChatHub.Mobile.Controls.ChatIncomingMessage">
-    <StackLayout
-        Orientation="Vertical"
-        HorizontalOptions="End">
-        <Label Text="{Binding Username}"
-               HorizontalOptions="End"
-               VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Italic" />
-        <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18"
-               FontAttributes="Bold" />
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:Models="clr-namespace:ChatHub.Mobile.Models;assembly=ChatHub.Mobile"
+       xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
+       x:DataType="Models:MessageUIModel"
+       x:Class="ChatHub.Mobile.Controls.ChatIncomingMessage">
+
+    <Frame.Resources>
+        <Converters:DatetimeToStringConverter x:Key="dateTimeConverter"></Converters:DatetimeToStringConverter>
+    </Frame.Resources>
+    
+    <StackLayout Orientation="Vertical">
+
+        <StackLayout
+            BackgroundColor="Gray"
+            HorizontalOptions="EndAndExpand">
+            <Label Text="{Binding Username}"
+                   HorizontalOptions="End"
+                   VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Italic" />
+            <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18"
+                   FontAttributes="Bold" />
+        </StackLayout>
+        <Label Text="{Binding MessageSentTime, Converter={StaticResource dateTimeConverter}}" HorizontalOptions="End" HorizontalTextAlignment="End" FontSize="8" />
     </StackLayout>
 </Frame>

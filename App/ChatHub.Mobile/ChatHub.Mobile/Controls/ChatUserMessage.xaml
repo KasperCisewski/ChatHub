@@ -3,16 +3,26 @@
 <Frame xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:Models="clr-namespace:ChatHub.Mobile.Models;assembly=ChatHub.Mobile"
+       xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
        x:DataType="Models:MessageUIModel"
-       BackgroundColor="LightBlue"
        x:Class="ChatHub.Mobile.Controls.ChatUserMessage">
+    
+    <Frame.Resources>
+        <Converters:DatetimeToStringConverter x:Key="dateTimeConverter"></Converters:DatetimeToStringConverter>
+    </Frame.Resources>
+    
     <StackLayout
-        Orientation="Vertical"
-        HorizontalOptions="Start">
-        <Label Text="{Binding Username}"
-               HorizontalOptions="Start"
-               VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Italic" />
-        <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18"
-               FontAttributes="Bold" />
+        Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <StackLayout
+            BackgroundColor="LightBlue"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand">
+            <Label Text="{Binding Username}"
+                   HorizontalOptions="Start"
+                   VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="10" FontAttributes="Italic" />
+            <Label Text="{Binding Content}" VerticalTextAlignment="Center" VerticalOptions="Center" FontSize="18"
+                   FontAttributes="Bold" />
+        </StackLayout>
+        <Label Text="{Binding MessageSentTime, Converter={StaticResource dateTimeConverter}}" HorizontalOptions="End" HorizontalTextAlignment="End" FontSize="8" />
     </StackLayout>
 </Frame>
