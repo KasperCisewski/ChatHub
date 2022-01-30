@@ -11,37 +11,45 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Selectors:ChatMessageTemplateSelector x:Key="ChatMessageTemplateSelector" />
+            <Selectors:ChatMessageTemplateSelector x:Key="chatMessageTemplateSelector" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <ScrollView VerticalOptions="FillAndExpand" x:Name="ChatViewScrollView">
+        <ScrollView VerticalOptions="FillAndExpand" x:Name="chatViewScrollView">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="85*" />
-                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
 
+                <Label Grid.Row="0"
+                       HorizontalOptions="End"
+                       TextColor="Chocolate"
+                       Text="{Binding UserOnChatQuantity}"/>
+                
+                <Image Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" IsAnimationPlaying="True" Source="typing.gif" />
+                
                 <CollectionView
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Margin="24,12,24,0"
                     BackgroundColor="Transparent"
-                    ItemTemplate="{StaticResource ChatMessageTemplateSelector}"
+                    ItemTemplate="{StaticResource chatMessageTemplateSelector}"
                     ItemsSource="{Binding Messages}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                 </CollectionView>
 
-                <Grid Grid.Row="1" Margin="0, 16,0,0">
+                <Grid Grid.Row="2" Margin="0, 8,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="70*" />
                         <ColumnDefinition Width="30*" />
                     </Grid.ColumnDefinitions>
                     <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center" 
                            HorizontalOptions="FillAndExpand" Text="{Binding MessageText}"
-                           Focused="MessageTextEntryHandle_Focused" />
+                           Focused="MessageTextEntryHandle_Focused" Unfocused="MessageTextEntryHandle_Focused" />
                     <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />
                 </Grid>
             </Grid>

@@ -51,7 +51,7 @@
         <CodesignKey>Apple Development: Kasper Cisewski (6EP45KMT6F)</CodesignKey>
         <MtouchDebug>true</MtouchDebug>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-        <MtouchLink>SdkOnly</MtouchLink>
+        <MtouchLink>Full</MtouchLink>
         <CodesignProvision>mentoring-development</CodesignProvision>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -133,6 +133,9 @@
             <Project>{B381D374-1F32-4192-A0D1-C8584308D125}</Project>
             <Name>ChatHub.Mobile</Name>
         </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <BundleResource Include="Resources\typing.gif" />
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

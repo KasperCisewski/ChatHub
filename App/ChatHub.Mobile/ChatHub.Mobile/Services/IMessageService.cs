@@ -6,8 +6,13 @@ namespace ChatHub.Mobile.Services
 {
     public interface IMessageService
     {
-        Task SendMessageAsync(Message message);
-        Task InitializeConnection(string currentUsername);
         IObservable<MessageUIModel> MessageObservable { get; }
+        IObservable<bool> OtherUserTypingObservable { get; }
+        IObservable<int> UserQuantityChangedObservable { get; }
+        
+        Task SendMessageAsync(Message message);
+        Task InitializeConnectionAsync(string currentUsername);
+        Task CloseConnectionAsync();
+        Task SendUserInterfaceInformation(bool isTyping);
     }
 }

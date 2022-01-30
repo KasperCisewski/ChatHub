@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Reactive.Disposables;
+using System.Threading.Tasks;
 using ChatHub.Library.Models;
 using ChatHub.Mobile.Models;
 using ChatHub.Mobile.Services;
@@ -10,6 +12,8 @@ namespace ChatHub.Mobile.ViewModels
 {
     public class ChatViewModel : BindableBase, INavigationAware
     {
+        private readonly CompositeDisposable _subscriptions = new CompositeDisposable();
+
         private readonly IMessageService _messageService;
         private IAsyncCommand _sendMessageCommand;
 
@@ -48,27 +52,55 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _messageText, value);
         }
 
+        private int _userOnChatQuantity;
+
+        public int UserOnChatQuantity
+        {
+            get => _userOnChatQuantity;
+            set => SetProperty(ref _userOnChatQuantity, value);
+        }
+
         public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
 
             _messageService = messageService;
-            _messageService
+            _subscriptions.Add(_messageService
                 .MessageObservable
                 .Subscribe(message =>
                 {
                     Messages.Add(message);
-                });
+                }));
+            
+            _subscriptions.Add(_messageService
+                .OtherUserTypingObservable
+                .Subscribe(isTyping =>
+                {
+                    
+                }));
+            
+            _subscriptions.Add(_messageService
+                .UserQuantityChangedObservable
+                .Subscribe(quantity =>
+                {
+                    UserOnChatQuantity = quantity;
+                }));
         }
 
-        public void OnNavigatedFrom(INavigationParameters parameters)
+        public async void OnNavigatedFrom(INavigationParameters parameters)
         {
+            await _messageService.CloseConnectionAsync();
         }
 
         public async void OnNavigatedTo(INavigationParameters parameters)
         {
             UserName = parameters["Username"].ToString();
-            await _messageService.InitializeConnection(UserName);
+            await _messageService.InitializeConnectionAsync(UserName);
+        }
+
+        public Task UserInputWasInvoked(bool isTyping)
+        {
+            return _messageService.SendUserInterfaceInformation(isTyping);
         }
     }
 }
