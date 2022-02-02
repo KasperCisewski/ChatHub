@@ -3,6 +3,7 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using ChatHub.Library.Models;
 using ChatHub.Mobile.Models;
+using ChatHub.Mobile.Models.Enums;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -23,6 +24,7 @@ namespace ChatHub.Mobile.Services.Implementation
         private readonly Subject<MessageUIModel> _messageSubject = new Subject<MessageUIModel>();
         private readonly Subject<bool> _someoneIsTypingSubject = new Subject<bool>();
         private readonly Subject<int> _userChatQuantityChangedSubject = new Subject<int>();
+        private readonly Subject<ChatState> _chatStateSubject = new Subject<ChatState>();
         
         public MessageService(IUserService userService)
         {
@@ -30,6 +32,7 @@ namespace ChatHub.Mobile.Services.Implementation
             MessageObservable = _messageSubject;
             OtherUserTypingObservable = _someoneIsTypingSubject;
             UserQuantityChangedObservable = _userChatQuantityChangedSubject;
+            ChatIsLoadingObservable = _chatStateSubject;
         }
         
         public IObservable<MessageUIModel> MessageObservable { get; }
@@ -37,10 +40,12 @@ namespace ChatHub.Mobile.Services.Implementation
         public IObservable<bool> OtherUserTypingObservable { get; }
         
         public IObservable<int> UserQuantityChangedObservable { get; }
+        public IObservable<ChatState> ChatIsLoadingObservable { get; }
 
         public async Task InitializeConnectionAsync(string currentUsername)
         {
             _userService.SaveCurrentUsername(currentUsername);
+            _chatStateSubject.OnNext(ChatState.IsLoading);
             try
             {
                 _hubConnection = new HubConnectionBuilder()
@@ -53,16 +58,18 @@ namespace ChatHub.Mobile.Services.Implementation
                     .Build();
                 
                 await _hubConnection.StartAsync();
-
                 
                 AddHubListeners();
 
                 _hubConnection.Reconnected += HubConnectionOnReconnected;
                 _hubConnection.Reconnecting += HubConnectionOnReconnecting;
                 _hubConnection.Closed += HubConnectionOnClosed;
+                
+                _chatStateSubject.OnNext(ChatState.IsActive);
             }
             catch (Exception e)
             {
+                _chatStateSubject.OnNext(ChatState.Error);
                 Console.WriteLine(e);
             }
         }

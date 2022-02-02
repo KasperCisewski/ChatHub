@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:Selectors="clr-namespace:ChatHub.Mobile.Selectors;assembly=ChatHub.Mobile"
+             xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
              prism:ViewModelLocator.AutowireViewModel="True"
              BackgroundColor="Black"
              Opacity="0.9"
@@ -12,48 +13,53 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Selectors:ChatMessageTemplateSelector x:Key="chatMessageTemplateSelector" />
+            <Converters:InverseBoolConverter x:Key="inverseBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="72" />
-                </Grid.RowDefinitions>
+        <Grid IsVisible="{Binding IsLoadingChat, Converter={StaticResource inverseBoolConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="72" />
+                <RowDefinition Height="32" />
+            </Grid.RowDefinitions>
+            
+            <ActivityIndicator Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="Center" VerticalOptions="Center"
+                               IsRunning="True" IsVisible="{Binding IsLoadingChat}" />
+            
+            <Label Grid.Row="0"
+                   HorizontalOptions="Start"
+                   TextColor="Chocolate"
+                   Text="{Binding UserOnChatQuantity}" />
 
-                <Label Grid.Row="0"
-                       HorizontalOptions="Start"
-                       TextColor="Chocolate"
-                       Text="{Binding UserOnChatQuantity}"/>
-                
-                <CollectionView
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="StartAndExpand"
-                    Grid.Row="1"
-                    Margin="24,12,24,0"
-                    BackgroundColor="Transparent"
-                    ItemTemplate="{StaticResource chatMessageTemplateSelector}"
-                    ItemsSource="{Binding Messages}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                </CollectionView>
-                
+            <CollectionView
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="StartAndExpand"
+                Grid.Row="1"
+                Margin="24,12,24,0"
+                BackgroundColor="Transparent"
+                ItemTemplate="{StaticResource chatMessageTemplateSelector}"
+                ItemsSource="{Binding Messages}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
 
-                <!-- <Image Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" IsAnimationPlaying="True" Source="typing.gif" /> -->
 
-                <Grid Grid.Row="2" Margin="0, 8,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70*" />
-                        <ColumnDefinition Width="30*" />
-                    </Grid.ColumnDefinitions>
-                    <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center" 
-                           HorizontalOptions="FillAndExpand" Text="{Binding MessageText}"
-                           Focused="MessageTextEntryHandle_Focused" Unfocused="MessageTextEntryHandle_Focused" />
-                    <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />
-                </Grid>
+            <!-- <Image Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" IsAnimationPlaying="True" Source="typing.gif" /> -->
+
+            <Grid Grid.Row="2" Margin="0, 8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70*" />
+                    <ColumnDefinition Width="30*" />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" Placeholder="Message Text" HorizontalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand" Text="{Binding MessageText}"
+                       Focused="MessageTextEntryHandle_Focused" Unfocused="MessageTextEntryHandle_Focused" />
+                <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />
             </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

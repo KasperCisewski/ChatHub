@@ -4,6 +4,7 @@ using System.Reactive.Disposables;
 using System.Threading.Tasks;
 using ChatHub.Library.Models;
 using ChatHub.Mobile.Models;
+using ChatHub.Mobile.Models.Enums;
 using ChatHub.Mobile.Services;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -68,10 +69,17 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _shouldShowSomeoneIsTyping, value);
         }
 
+        public bool _isLoadingChat;
+        public bool IsLoadingChat
+        {
+            get => _isLoadingChat;
+            set => SetProperty(ref _isLoadingChat, value);
+        }
+
         public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
-
+            IsLoadingChat = true;
             _messageService = messageService;
             _subscriptions.Add(_messageService
                 .MessageObservable
@@ -92,6 +100,26 @@ namespace ChatHub.Mobile.ViewModels
                 .Subscribe(quantity =>
                 {
                     UserOnChatQuantity = quantity;
+                }));
+            
+            _subscriptions.Add(_messageService
+                .ChatIsLoadingObservable
+                .Subscribe(chatState =>
+                {
+                    switch (chatState)
+                    {
+                        case ChatState.IsLoading:
+                            IsLoadingChat = true;
+                            break;
+                        case ChatState.IsActive:
+                            IsLoadingChat = false;
+                            break;
+                        case ChatState.Error:
+                            
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(chatState), chatState, null);
+                    }
                 }));
         }
 
