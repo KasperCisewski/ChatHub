@@ -12,9 +12,9 @@
     </Frame.Resources>
     
     <StackLayout
+        BackgroundColor="LightBlue"
         Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <StackLayout
-            BackgroundColor="LightBlue"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand">
             <Label Text="{Binding Username}"

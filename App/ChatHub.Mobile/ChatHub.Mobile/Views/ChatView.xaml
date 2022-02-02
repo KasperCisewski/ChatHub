@@ -16,22 +16,21 @@
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <ScrollView VerticalOptions="FillAndExpand" x:Name="chatViewScrollView">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="72" />
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0"
-                       HorizontalOptions="End"
+                       HorizontalOptions="Start"
                        TextColor="Chocolate"
                        Text="{Binding UserOnChatQuantity}"/>
                 
-                <Image Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" IsAnimationPlaying="True" Source="typing.gif" />
-                
                 <CollectionView
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="StartAndExpand"
                     Grid.Row="1"
                     Margin="24,12,24,0"
                     BackgroundColor="Transparent"
@@ -41,6 +40,9 @@
                         <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                 </CollectionView>
+                
+
+                <!-- <Image Grid.Row="1" HorizontalOptions="End" VerticalOptions="End" IsAnimationPlaying="True" Source="typing.gif" /> -->
 
                 <Grid Grid.Row="2" Margin="0, 8,0,0">
                     <Grid.ColumnDefinitions>
@@ -53,6 +55,5 @@
                     <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />
                 </Grid>
             </Grid>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

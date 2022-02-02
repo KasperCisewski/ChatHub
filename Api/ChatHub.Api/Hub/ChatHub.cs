@@ -23,19 +23,19 @@ namespace ChatHub.Api.Hub
         public override async Task OnConnectedAsync()
         {
             Interlocked.Increment(ref _connectionCount);
+
+            await base.OnConnectedAsync();
             
             await Clients.All.ReceiveChatUserQuantity(_connectionCount);
-            
-            await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             Interlocked.Decrement(ref _connectionCount);
-
-            await Clients.All.ReceiveChatUserQuantity(_connectionCount);
             
             await base.OnDisconnectedAsync(exception);
+            
+            await Clients.All.ReceiveChatUserQuantity(_connectionCount);
         }
     }
 }

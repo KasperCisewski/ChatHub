@@ -11,10 +11,9 @@
         <Converters:DatetimeToStringConverter x:Key="dateTimeConverter"></Converters:DatetimeToStringConverter>
     </Frame.Resources>
     
-    <StackLayout Orientation="Vertical">
+    <StackLayout BackgroundColor="Gray" Orientation="Vertical">
 
         <StackLayout
-            BackgroundColor="Gray"
             HorizontalOptions="EndAndExpand">
             <Label Text="{Binding Username}"
                    HorizontalOptions="End"

@@ -54,11 +54,12 @@ namespace ChatHub.Mobile.Services.Implementation
                 
                 await _hubConnection.StartAsync();
 
-                AddHubListeners();
                 
+                AddHubListeners();
+
                 _hubConnection.Reconnected += HubConnectionOnReconnected;
                 _hubConnection.Reconnecting += HubConnectionOnReconnecting;
-                _hubConnection.Closed += HubConnectionOnClosed; 
+                _hubConnection.Closed += HubConnectionOnClosed;
             }
             catch (Exception e)
             {

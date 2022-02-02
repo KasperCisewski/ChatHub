@@ -26,9 +26,9 @@ namespace ChatHub.Mobile.Views
 //TODO                    
                 }
 
-                var height = chatViewScrollView.Height;
-
-                await chatViewScrollView.ScrollToAsync(0, height, true);
+                // var height = chatViewScrollView.Height;
+                //
+                // await chatViewScrollView.ScrollToAsync(0, height, true);
             });
         }
     }

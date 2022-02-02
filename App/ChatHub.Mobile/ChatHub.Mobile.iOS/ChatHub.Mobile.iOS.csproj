@@ -51,7 +51,7 @@
         <CodesignKey>Apple Development: Kasper Cisewski (6EP45KMT6F)</CodesignKey>
         <MtouchDebug>true</MtouchDebug>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-        <MtouchLink>Full</MtouchLink>
+        <MtouchLink>None</MtouchLink>
         <CodesignProvision>mentoring-development</CodesignProvision>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">

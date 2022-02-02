@@ -60,6 +60,14 @@ namespace ChatHub.Mobile.ViewModels
             set => SetProperty(ref _userOnChatQuantity, value);
         }
 
+        private bool _shouldShowSomeoneIsTyping;
+
+        public bool ShouldShowSomeoneIsTyping
+        {
+            get => _shouldShowSomeoneIsTyping;
+            set => SetProperty(ref _shouldShowSomeoneIsTyping, value);
+        }
+
         public ChatViewModel(IMessageService messageService)
         {
             _messages = new ObservableCollection<MessageUIModel>();
@@ -76,7 +84,7 @@ namespace ChatHub.Mobile.ViewModels
                 .OtherUserTypingObservable
                 .Subscribe(isTyping =>
                 {
-                    
+                    ShouldShowSomeoneIsTyping = isTyping;
                 }));
             
             _subscriptions.Add(_messageService
@@ -90,6 +98,7 @@ namespace ChatHub.Mobile.ViewModels
         public async void OnNavigatedFrom(INavigationParameters parameters)
         {
             await _messageService.CloseConnectionAsync();
+            _subscriptions.Clear();
         }
 
         public async void OnNavigatedTo(INavigationParameters parameters)
