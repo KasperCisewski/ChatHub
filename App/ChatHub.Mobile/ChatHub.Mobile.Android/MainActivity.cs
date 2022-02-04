@@ -1,11 +1,9 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using ChatHub.Mobile.Android.Services;
+using ChatHub.Mobile.Services;
+using Xamarin.Forms;
 
 namespace ChatHub.Mobile.Android
 {
@@ -16,9 +14,11 @@ namespace ChatHub.Mobile.Android
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            DependencyService.Register<IKeyboardInteractionService, KeyboardInteractionService>();
 
             base.OnCreate(savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            
+            Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
     }

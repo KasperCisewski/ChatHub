@@ -5,6 +5,8 @@
        xmlns:Models="clr-namespace:ChatHub.Mobile.Models;assembly=ChatHub.Mobile"
        xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
        x:DataType="Models:MessageUIModel"
+       BackgroundColor="LightBlue"
+       Padding="1"
        CornerRadius="15"
        x:Class="ChatHub.Mobile.Controls.ChatUserMessage">
     
@@ -13,7 +15,6 @@
     </Frame.Resources>
     
     <StackLayout
-        BackgroundColor="LightBlue"
         Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
         <StackLayout
             VerticalOptions="FillAndExpand"

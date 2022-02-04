@@ -2,10 +2,8 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
              xmlns:Selectors="clr-namespace:ChatHub.Mobile.Selectors;assembly=ChatHub.Mobile"
              xmlns:Converters="clr-namespace:ChatHub.Mobile.Converters;assembly=ChatHub.Mobile"
-             prism:ViewModelLocator.AutowireViewModel="True"
              BackgroundColor="Black"
              Opacity="0.9"
              x:Class="ChatHub.Mobile.Views.ChatView">
@@ -24,6 +22,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="72" />
                 <RowDefinition Height="32" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             
             <ActivityIndicator Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="Center" VerticalOptions="Center"
@@ -60,6 +59,8 @@
                        Focused="MessageTextEntryHandle_Focused" Unfocused="MessageTextEntryHandle_Focused" />
                 <Button Grid.Column="1" Text="Send" Command="{Binding SendMessageCommand}" />
             </Grid>
+            
+            <ContentView x:Name="contentView" Grid.Row="4" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

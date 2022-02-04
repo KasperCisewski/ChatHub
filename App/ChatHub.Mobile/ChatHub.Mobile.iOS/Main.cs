@@ -1,4 +1,7 @@
-﻿using UIKit;
+﻿using ChatHub.Mobile.iOS.Services;
+using ChatHub.Mobile.Services;
+using UIKit;
+using Xamarin.Forms;
 
 namespace ChatHub.Mobile.iOS
 {
@@ -9,6 +12,7 @@ namespace ChatHub.Mobile.iOS
         {
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.
+            DependencyService.Register<IKeyboardInteractionService, KeyboardInteractionService>();
             UIApplication.Main(args, null, "AppDelegate");
         }
     }
